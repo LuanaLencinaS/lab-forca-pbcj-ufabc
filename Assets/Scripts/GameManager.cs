@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // variaveis publicas para uso na interface
-    public GameObject letra;            // prefab da letra no Game
-    public GameObject centro;           // objeto de texto que indica o centro da tela
+    public GameObject letra;                // prefab da letra no Game
+    public GameObject centro;               // objeto de texto que indica o centro da tela
 
     // variáveis encapsuladas
     private int numTentativas;          // Armazena o total das tentativas válidas
@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     private int tamanhoPalavraOculta;   // tamanho da palavra oculta
     char[] letrasOcultas;               // letras da palavra oculta
     bool[] letrasDescobertas;           // indicador de quais letras foram descobertas
+
+    char?[] letrasErradas;
+    
 
 
     // Start is called before the first frame update
@@ -107,6 +110,7 @@ public class GameManager : MonoBehaviour
         letrasOcultas = new char[tamanhoPalavraOculta];                         // instancia array char das letras com comprimento da palavra oculta
         letrasDescobertas = new bool[tamanhoPalavraOculta];                     // instancia array booleano de marcacao com comprimento da palavra oculta
         letrasOcultas = palavraOculta.ToCharArray();                            // copia letra a letra da palavra (string) no array de letras (char[])
+        letrasErradas = new char?[24];
     }
 
     /*
@@ -117,18 +121,16 @@ public class GameManager : MonoBehaviour
      */
     void CheckTeclado()
     {
-        if(Input.anyKeyDown)    // se qualquer tecla for pressionada
+
+
+        bool acertouLetra = false;
+        if (Input.anyKeyDown)    // se qualquer tecla for pressionada
         {
             char letraTeclada = Input.inputString.ToCharArray()[0]; // instancia e inicializa com valor (letra) digitada
             int letraTecladaComoInt = System.Convert.ToInt32(letraTeclada); // converte letra teclada em inteiro
-
             // checa consistencia da letra
             if (letraTecladaComoInt >= 97 && letraTecladaComoInt <= 122) // 97 = a e 122 = z
             {
-                // cada vez que insiro uma tentativa válido, atualizo minhas tentativas
-                numTentativas++;
-                UpdateNumTentativas();
-
                 /* Exibe tela de game over - perda.
                  * Quando o limite de tentativas eh
                  * excedido, carrega cena com a forca.
@@ -139,7 +141,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 // percorre palavra oculta
-                for (int i = 0; i <= tamanhoPalavraOculta; i++)
+                for (int i = 0; i < tamanhoPalavraOculta; i++)
                 {
                     // valida apenas posicoes ainda nao descobertas
                     if (!letrasDescobertas[i])
@@ -169,12 +171,50 @@ public class GameManager : MonoBehaviour
                             PlayerPrefs.SetInt("score", score);
                             UpdateScore(); // chama metodo para atualziar score em tela
                             VerificaSePalavraDescoberta(); // chama método para verificar se venceu e carregar a cena
+                            acertouLetra = true;
                         }
                     }
 
+
+                }
+
+                if (!acertouLetra)
+                {
+                    for (int i = 0; i <= letrasErradas.Length; i++)
+                    {
+                        if(letrasErradas[i] == letraTeclada){
+                            break;
+                        }
+                        if (!letrasErradas[i].HasValue)
+                        {
+                            // cada vez que insiro uma tentativa válido, atualizo minhas tentativas
+                            numTentativas++;
+                            UpdateNumTentativas();
+                            letrasErradas[i] = letraTeclada;
+                            break;
+                        }
+
+                    }
+                    UpdateLetrasErradas();
                 }
             }
         }
+    }
+    /* Exibir Letras Erradass
+     * Pecorre o array de letras erradas para exibir ao jogador
+     */
+    void UpdateLetrasErradas()
+    {
+        string stringLetrasErradas = "";
+        for (int i = 0; i <= letrasErradas.Length; i++)
+        {
+            if (!letrasErradas[i].HasValue)
+            {
+                break;
+            }
+            stringLetrasErradas = stringLetrasErradas + letrasErradas[i] + " ";
+        }
+        GameObject.Find("letrasErradas").GetComponent<Text>().text = stringLetrasErradas;
     }
 
     /* Total de tentativas
