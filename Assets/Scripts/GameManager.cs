@@ -172,8 +172,6 @@ public class GameManager : MonoBehaviour
                             UpdateScore(); // chama metodo para atualziar score em tela
                             VerificaSePalavraDescoberta(); // chama método para verificar se venceu e carregar a cena
                             acertouLetra = true;
-                            Debug.Log(acertouLetra);
-
                         }
                     }
 
@@ -216,8 +214,6 @@ public class GameManager : MonoBehaviour
             }
             stringLetrasErradas = stringLetrasErradas + letrasErradas[i] + " ";
         }
-        Debug.Log(stringLetrasErradas);
-        Debug.Log("local");
         GameObject.Find("letrasErradas").GetComponent<Text>().text = stringLetrasErradas;
     }
 

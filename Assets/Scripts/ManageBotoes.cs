@@ -39,4 +39,14 @@ public class ManageBotoes : MonoBehaviour
          */
         SceneManager.LoadScene("lab1"); 
     }
+    /* Método para linkar a cena de creditos
+     * Carrega cena 4 (creditos)
+     */
+    public void CreditosCriadores()
+    {
+        /* Método unity para carga de cena
+         * Pode ser passado no param o nome da cena ou seu index
+         */
+        SceneManager.LoadScene("lab1_creditos");
+    }
 }
