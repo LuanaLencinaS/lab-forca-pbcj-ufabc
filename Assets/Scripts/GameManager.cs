@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
                  * Quando o limite de tentativas eh
                  * excedido, carrega cena com a forca.
                  */
-                if (numTentativas > maxNumTentativas)
+                if (numTentativas >= maxNumTentativas)
                 {
                     SceneManager.LoadScene("lab1_forca");
                 }
