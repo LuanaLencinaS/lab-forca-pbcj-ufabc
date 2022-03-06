@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     char[] letrasOcultas;               // letras da palavra oculta
     bool[] letrasDescobertas;           // indicador de quais letras foram descobertas
 
-    char?[] letrasErradas;
+    char?[] letrasErradas; //array para guarda as letras erradas já digitada pelo usuario
     
 
 
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
         letrasOcultas = new char[tamanhoPalavraOculta];                         // instancia array char das letras com comprimento da palavra oculta
         letrasDescobertas = new bool[tamanhoPalavraOculta];                     // instancia array booleano de marcacao com comprimento da palavra oculta
         letrasOcultas = palavraOculta.ToCharArray();                            // copia letra a letra da palavra (string) no array de letras (char[])
-        letrasErradas = new char?[24];
+        letrasErradas = new char?[24];                                          // instancia array char para guarda as letras erradas digitadas pelo jogador
     }
 
     /*
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
     {
 
 
-        bool acertouLetra = false;
+        bool acertouLetra = false; //variavel booleana iniciada usada como indicativo se o jogador acertou ou não a letra
         if (Input.anyKeyDown)    // se qualquer tecla for pressionada
         {
             char letraTeclada = Input.inputString.ToCharArray()[0]; // instancia e inicializa com valor (letra) digitada
@@ -171,31 +171,31 @@ public class GameManager : MonoBehaviour
                             PlayerPrefs.SetInt("score", score);
                             UpdateScore(); // chama metodo para atualziar score em tela
                             VerificaSePalavraDescoberta(); // chama método para verificar se venceu e carregar a cena
-                            acertouLetra = true;
+                            acertouLetra = true; //caso o jogador acerte a letra a mudo o valor da variavel para true
                         }
                     }
 
 
                 }
 
-                if (!acertouLetra)
+                if (!acertouLetra)//verifico se o jogador acertou uma letra
                 {
-                    for (int i = 0; i <= letrasErradas.Length; i++)
+                    for (int i = 0; i <= letrasErradas.Length; i++)//pecorro meu array de letras erradas
                     {
-                        if(letrasErradas[i] == letraTeclada){
-                            break;
+                        if(letrasErradas[i] == letraTeclada){//verifico se o usuario já digitou esta letra antes
+                            break;//paro o loop do meu for
                         }
-                        if (!letrasErradas[i].HasValue)
+                        if (!letrasErradas[i].HasValue)//na primeira posição disponivel do array de letras guardo a letra digitada errada
                         {
                             // cada vez que insiro uma tentativa válido, atualizo minhas tentativas
                             numTentativas++;
                             UpdateNumTentativas();
                             letrasErradas[i] = letraTeclada;
-                            break;
+                            break;//paro o loop do meu for
                         }
 
                     }
-                    UpdateLetrasErradas();
+                    UpdateLetrasErradas();//atualizo a exibição de letras erradas
                 }
             }
         }
