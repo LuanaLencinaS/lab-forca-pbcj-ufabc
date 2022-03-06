@@ -29,10 +29,10 @@ Com os bônus de:
 
 Atenção! Como houve diferença de resolução considerável entre nós durante o desenvolvimento, resolvemos trabalhar o jogo no unity na resolução HD de 1280x720px. Ficando assim legível/melhor para ambas as partes.
 
-![Captura de tela 2022-03-06 013614](https://user-images.githubusercontent.com/58888952/156911766-674ffae8-b2ed-4242-ae33-c45eba824c07.png)
+![principal](https://user-images.githubusercontent.com/47460765/156927981-2a38c7fb-a919-4b1e-864d-52d2e4ad71bd.png)
 
 ![Captura de tela 2022-03-06 013708](https://user-images.githubusercontent.com/58888952/156911772-c48c5477-a121-4817-905c-27762e176fde.png)
 
-![Captura de tela 2022-03-06 013251](https://user-images.githubusercontent.com/58888952/156911776-293fde0e-9fa1-4d98-a6dc-eec7953ab47e.png)
+![forca](https://user-images.githubusercontent.com/47460765/156928041-a627c9bd-2f46-4bbd-991b-06292ace3911.png)
 
 ![Captura de tela 2022-03-06 031737](https://user-images.githubusercontent.com/58888952/156911792-fbe938f1-6ce5-4d0f-9b6d-e636a66dbf62.png)
